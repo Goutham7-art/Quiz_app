@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Quizify</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <ul class="main">
+            <li>Quizify</li>
+            <li class="OnMobile"><a href="index.html">Home</a></li>
+            <li class="OnMobile"><a href="about.html">About</a></li>
+            <li class="open" onclick="opensidemenu()">&#9776;</li>
+        </ul>
+        <ul class="sidebar">
+            <li class="close" onclick="closesidemenu()">&times;</li>
+            <li class="navi"><a href="index.html">Home</a></li>
+            <li class="navi"><a  href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="tagline">
+        <h1>Know Us Better ✨</h1>
+    </div>
+
+    <div class="about-container">
+        <div class="about-content">
+            <h2>Welcome to Quizify!</h2>
+            <p>
+                Quizify is your go-to destination for fun, interactive, and educational quizzes that sharpen your coding skills.
+                Whether you're a beginner exploring HTML or a pro testing your Java knowledge, we've got something for everyone.
+            </p>
+            <p>
+                We believe learning should be engaging and enjoyable. That’s why we’ve packed Quizify with a range of programming topics –
+                from Python to SQL – all wrapped in a clean, friendly interface.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function opensidemenu() {
+            const sidemenu = document.querySelector(".sidebar");
+            sidemenu.style.display = 'flex';
+        }
+
+        function closesidemenu() {
+            const sidemenu = document.querySelector(".sidebar");
+            sidemenu.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

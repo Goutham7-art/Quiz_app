@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <nav>
+        <ul class="main">
+        <li>Quizify</li>
+        <li class="OnMobile"><a class="active" href="index.html">Home</a></li>
+        <li class="OnMobile"><a href="about.html">About</a></li>
+        <li class="open" onclick=opensidemenu()>&#9776;</li>
+        </ul>
+        <ul class="sidebar">
+            
+            <li class="close" onclick=closesidemenu()>&times;</li>
+            <li class="navi"><a class="active" href="index.html">Home</a></li>
+            <li class="navi"><a href="about.html">About</a></li>
+            
+        </ul>
+    </nav>
+    <div class="main-box">
+    <div class="que-box">
+        <h2 class="ques">Question</h2>
+        <ul style="list-style-type: none;">
+            <li>
+                <input type="radio" class="ans" id="opt1" name="opt">
+                <label for="ans1" class="answer1 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt2" name="opt">
+                <label for="ans2" class="answer2 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt3" name="opt">
+                <label for="ans3" class="answer3 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt4" name="opt">
+                <label for="ans4" class="answer4 an">Option 1</label>
+            </li>
+        </ul>
+        <div class="submit-button">
+            <button class="submit">Submit</button>
+         </div>
+         <div class="score" >
+
+         </div>
+    </div>
+</div>
+    
+    <script>
+               function opensidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'flex';
+}
+
+function closesidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'none';
+}
+
+let quizdata = [
+    {
+        "question": "What is the size of an int data type in Java?",
+        "opt1": "2 bytes",
+        "opt2": "4 bytes",
+        "opt3": "8 bytes",
+        "opt4": "Depends on the system",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which keyword is used to inherit a class in Java?",
+        "opt1": "this",
+        "opt2": "import",
+        "opt3": "extends",
+        "opt4": "implements",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which method is the entry point of a Java program?",
+        "opt1": "start()",
+        "opt2": "main()",
+        "opt3": "run()",
+        "opt4": "init()",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which of these is not a Java keyword?",
+        "opt1": "static",
+        "opt2": "Boolean",
+        "opt3": "void",
+        "opt4": "private",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which of these is a valid declaration of a Java array?",
+        "opt1": "int arr[] = new int[5];",
+        "opt2": "int arr = new int[5];",
+        "opt3": "int arr[] = int[5];",
+        "opt4": "array arr = new array[5];",
+        "correct_answer": "opt1"
+    },
+    {
+        "question": "What is the default value of a boolean variable in Java?",
+        "opt1": "true",
+        "opt2": "false",
+        "opt3": "0",
+        "opt4": "null",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which of the following is not a primitive data type in Java?",
+        "opt1": "int",
+        "opt2": "float",
+        "opt3": "String",
+        "opt4": "char",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "What will `System.out.println(10 + 20 + \"30\")` print?",
+        "opt1": "102030",
+        "opt2": "30",
+        "opt3": "3030",
+        "opt4": "3030",
+        "correct_answer": "opt1"
+    },
+    {
+        "question": "Which concept of OOP is implemented using method overloading?",
+        "opt1": "Abstraction",
+        "opt2": "Inheritance",
+        "opt3": "Polymorphism",
+        "opt4": "Encapsulation",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which exception is thrown when a division by zero occurs in Java?",
+        "opt1": "ArithmeticException",
+        "opt2": "IOException",
+        "opt3": "NullPointerException",
+        "opt4": "NumberFormatException",
+        "correct_answer": "opt1"
+    }
+];
+
+
+let counter = 0;
+let score = document.querySelector(".score");
+let data;
+
+function loadquestion() {
+    data = quizdata[counter];
+    document.querySelector(".ques").innerText = data.question;
+    document.querySelector(".answer1").innerText = data.opt1;
+    document.querySelector(".answer2").innerText = data.opt2;
+    document.querySelector(".answer3").innerText = data.opt3;
+    document.querySelector(".answer4").innerText = data.opt4;
+}
+
+loadquestion();
+
+let options = document.querySelectorAll("input[name='opt']");
+let scoreboard = 0;
+let submit = document.querySelector(".submit");
+
+const deselectAll = () => {
+    options.forEach((option) => {
+        option.checked = false;
+    });
+};
+
+submit.addEventListener("click", () => {
+    let selected = false;
+    let userchoice;
+
+    options.forEach((option) => {
+        if (option.checked) {
+            userchoice = option.id;
+            selected = true;
+        }
+    });
+
+    if (!selected) {
+        alert("Please select an option before submitting!");
+        return;
+    }
+
+    if (userchoice === data.correct_answer) {
+        scoreboard++;
+    }
+
+    deselectAll();
+    counter++;
+
+    if (counter < quizdata.length) {
+        loadquestion();
+    } else {
+        score.innerHTML = `
+            <h3>You scored ${scoreboard}/${quizdata.length} ✌️</h3>
+            <button onClick="window.location.reload();">Play Again</button>
+        `;
+        submit.style.visibility = "hidden";
+        score.classList.remove("score");
+        score.classList.add("showScore");
+    }
+});
+    </script>
+</body>

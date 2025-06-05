@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <nav>
+        <ul class="main">
+        <li>Quizify</li>
+        <li class="OnMobile"><a class="active" href="index.html">Home</a></li>
+        <li class="OnMobile"><a href="about.html">About</a></li>
+        <li class="open" onclick=opensidemenu()>&#9776;</li>
+        </ul>
+        <ul class="sidebar">
+            
+            <li class="close" onclick=closesidemenu()>&times;</li>
+            <li class="navi"><a class="active" href="index.html">Home</a></li>
+            <li class="navi"><a href="about.html">About</a></li>
+            
+        </ul>
+    </nav>
+    <div class="main-box">
+    <div class="que-box">
+        <h2 class="ques">Question</h2>
+        <ul style="list-style-type: none;">
+            <li>
+                <input type="radio" class="ans" id="opt1" name="opt">
+                <label for="ans1" class="answer1 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt2" name="opt">
+                <label for="ans2" class="answer2 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt3" name="opt">
+                <label for="ans3" class="answer3 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt4" name="opt">
+                <label for="ans4" class="answer4 an">Option 1</label>
+            </li>
+        </ul>
+        <div class="submit-button">
+            <button class="submit">Submit</button>
+         </div>
+         <div class="score" >
+
+         </div>
+    </div>
+</div>
+    
+    <script>
+               function opensidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'flex';
+}
+
+function closesidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'none';
+}
+
+let quizdata = [
+    {
+        "question": "Which of the following is the correct syntax to print in C?",
+        "opt1": "echo(\"Hello\");",
+        "opt2": "Console.Write(\"Hello\");",
+        "opt3": "print(\"Hello\");",
+        "opt4": "printf(\"Hello\");",
+        "correct_answer": "opt4"
+    },
+    {
+        "question": "Which data type is used to store a single character in C?",
+        "opt1": "char",
+        "opt2": "string",
+        "opt3": "int",
+        "opt4": "float",
+        "correct_answer": "opt1"
+    },
+    {
+        "question": "Which symbol is used to denote a preprocessor directive in C?",
+        "opt1": "&",
+        "opt2": "$",
+        "opt3": "#",
+        "opt4": "@",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which of these is a correct variable declaration in C?",
+        "opt1": "int 1number;",
+        "opt2": "int number_1;",
+        "opt3": "int number-1;",
+        "opt4": "int @number;",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "What is the output of: `printf(\"%d\", 5 + 3 * 2);`?",
+        "opt1": "16",
+        "opt2": "11",
+        "opt3": "10",
+        "opt4": "8",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which function is used to read a single character from user input?",
+        "opt1": "gets()",
+        "opt2": "input()",
+        "opt3": "getchar()",
+        "opt4": "scanf()",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which of the following is used to terminate a C program successfully?",
+        "opt1": "return 1;",
+        "opt2": "exit(0);",
+        "opt3": "stop();",
+        "opt4": "terminate();",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which operator is used for 'logical AND' in C?",
+        "opt1": "&&",
+        "opt2": "&",
+        "opt3": "AND",
+        "opt4": "|",
+        "correct_answer": "opt1"
+    },
+    {
+        "question": "Which header file is required for using `printf()` and `scanf()`?",
+        "opt1": "stdlib.h",
+        "opt2": "conio.h",
+        "opt3": "stdio.h",
+        "opt4": "math.h",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "What is the size of an `int` typically in C (in bytes)?",
+        "opt1": "2",
+        "opt2": "4",
+        "opt3": "8",
+        "opt4": "1",
+        "correct_answer": "opt2"
+    }
+];
+
+
+let counter = 0;
+let score = document.querySelector(".score");
+let data;
+
+function loadquestion() {
+    data = quizdata[counter];
+    document.querySelector(".ques").innerText = data.question;
+    document.querySelector(".answer1").innerText = data.opt1;
+    document.querySelector(".answer2").innerText = data.opt2;
+    document.querySelector(".answer3").innerText = data.opt3;
+    document.querySelector(".answer4").innerText = data.opt4;
+}
+
+loadquestion();
+
+let options = document.querySelectorAll("input[name='opt']");
+let scoreboard = 0;
+let submit = document.querySelector(".submit");
+
+const deselectAll = () => {
+    options.forEach((option) => {
+        option.checked = false;
+    });
+};
+
+submit.addEventListener("click", () => {
+    let selected = false;
+    let userchoice;
+
+    options.forEach((option) => {
+        if (option.checked) {
+            userchoice = option.id;
+            selected = true;
+        }
+    });
+
+    if (!selected) {
+        alert("Please select an option before submitting!");
+        return;
+    }
+
+    if (userchoice === data.correct_answer) {
+        scoreboard++;
+    }
+
+    deselectAll();
+    counter++;
+
+    if (counter < quizdata.length) {
+        loadquestion();
+    } else {
+        score.innerHTML = `
+            <h3>You scored ${scoreboard}/${quizdata.length} ✌️</h3>
+            <button onClick="window.location.reload();">Play Again</button>
+        `;
+        submit.style.visibility = "hidden";
+        score.classList.remove("score");
+        score.classList.add("showScore");
+    }
+});
+    </script>
+</body>

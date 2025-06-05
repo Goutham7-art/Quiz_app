@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <nav>
+        <ul class="main">
+        <li>Quizify</li>
+        <li class="OnMobile"><a class="active" href="index.html">Home</a></li>
+        <li class="OnMobile"><a href="about.html">About</a></li>
+        <li class="open" onclick=opensidemenu()>&#9776;</li>
+        </ul>
+        <ul class="sidebar">
+            
+            <li class="close" onclick=closesidemenu()>&times;</li>
+            <li class="navi"><a class="active" href="index.html">Home</a></li>
+            <li class="navi"><a href="about.html">About</a></li>
+            
+        </ul>
+    </nav>
+    <div class="main-box">
+    <div class="que-box">
+        <h2 class="ques">Question</h2>
+        <ul style="list-style-type: none;">
+            <li>
+                <input type="radio" class="ans" id="opt1" name="opt">
+                <label for="ans1" class="answer1 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt2" name="opt">
+                <label for="ans2" class="answer2 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt3" name="opt">
+                <label for="ans3" class="answer3 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt4" name="opt">
+                <label for="ans4" class="answer4 an">Option 1</label>
+            </li>
+        </ul>
+        <div class="submit-button">
+            <button class="submit">Submit</button>
+         </div>
+         <div class="score" >
+
+         </div>
+    </div>
+</div>
+    
+    <script>
+               function opensidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'flex';
+}
+
+function closesidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'none';
+}
+
+let quizdata = [
+    {
+        "question": "Which SQL keyword is used to retrieve data from a database?",
+        "opt1": "GET",
+        "opt2": "FETCH",
+        "opt3": "SELECT",
+        "opt4": "RETRIEVE",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which clause is used to filter records in SQL?",
+        "opt1": "ORDER BY",
+        "opt2": "GROUP BY",
+        "opt3": "FILTER",
+        "opt4": "WHERE",
+        "correct_answer": "opt4"
+    },
+    {
+        "question": "What does the SQL COUNT() function do?",
+        "opt1": "Counts characters in a string",
+        "opt2": "Counts rows in a result set",
+        "opt3": "Counts columns in a table",
+        "opt4": "Counts the number of tables",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which SQL statement is used to update data in a table?",
+        "opt1": "MODIFY",
+        "opt2": "CHANGE",
+        "opt3": "UPDATE",
+        "opt4": "SET",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "What is the default sorting order of the ORDER BY clause?",
+        "opt1": "Descending",
+        "opt2": "Random",
+        "opt3": "Ascending",
+        "opt4": "Alphabetical",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which of the following is used to remove duplicate rows in SQL?",
+        "opt1": "NO_DUPLICATES",
+        "opt2": "REMOVE_DUPLICATES",
+        "opt3": "DISTINCT",
+        "opt4": "UNIQUE",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which SQL keyword is used to combine rows from two or more tables?",
+        "opt1": "MERGE",
+        "opt2": "COMBINE",
+        "opt3": "JOIN",
+        "opt4": "UNION",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "What is a primary key?",
+        "opt1": "A column that allows null values",
+        "opt2": "A column that identifies each row uniquely",
+        "opt3": "A column with duplicate values",
+        "opt4": "A foreign column",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which of the following is not a valid SQL data type?",
+        "opt1": "INT",
+        "opt2": "VARCHAR",
+        "opt3": "FLOATING",
+        "opt4": "DATE",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which SQL command is used to delete all rows from a table without logging each row deletion?",
+        "opt1": "DROP",
+        "opt2": "DELETE",
+        "opt3": "REMOVE",
+        "opt4": "TRUNCATE",
+        "correct_answer": "opt4"
+    }
+];
+
+
+
+let counter = 0;
+let score = document.querySelector(".score");
+let data;
+
+function loadquestion() {
+    data = quizdata[counter];
+    document.querySelector(".ques").innerText = data.question;
+    document.querySelector(".answer1").innerText = data.opt1;
+    document.querySelector(".answer2").innerText = data.opt2;
+    document.querySelector(".answer3").innerText = data.opt3;
+    document.querySelector(".answer4").innerText = data.opt4;
+}
+
+loadquestion();
+
+let options = document.querySelectorAll("input[name='opt']");
+let scoreboard = 0;
+let submit = document.querySelector(".submit");
+
+const deselectAll = () => {
+    options.forEach((option) => {
+        option.checked = false;
+    });
+};
+
+submit.addEventListener("click", () => {
+    let selected = false;
+    let userchoice;
+
+    options.forEach((option) => {
+        if (option.checked) {
+            userchoice = option.id;
+            selected = true;
+        }
+    });
+
+    if (!selected) {
+        alert("Please select an option before submitting!");
+        return;
+    }
+
+    if (userchoice === data.correct_answer) {
+        scoreboard++;
+    }
+
+    deselectAll();
+    counter++;
+
+    if (counter < quizdata.length) {
+        loadquestion();
+    } else {
+        score.innerHTML = `
+            <h3>You scored ${scoreboard}/${quizdata.length} ✌️</h3>
+            <button onClick="window.location.reload();">Play Again</button>
+        `;
+        submit.style.visibility = "hidden";
+        score.classList.remove("score");
+        score.classList.add("showScore");
+    }
+});
+    </script>
+</body>

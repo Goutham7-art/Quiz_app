@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <nav>
+        <ul class="main">
+        <li>Quizify</li>
+        <li class="OnMobile"><a class="active" href="index.html">Home</a></li>
+        <li class="OnMobile"><a href="about.html">About</a></li>
+        <li class="open" onclick=opensidemenu()>&#9776;</li>
+        </ul>
+        <ul class="sidebar">
+            
+            <li class="close" onclick=closesidemenu()>&times;</li>
+            <li class="navi"><a class="active" href="index.html">Home</a></li>
+            <li class="navi"><a href="about.html">About</a></li>
+            
+        </ul>
+    </nav>
+    <div class="main-box">
+    <div class="que-box">
+        <h2 class="ques">Question</h2>
+        <ul style="list-style-type: none;">
+            <li>
+                <input type="radio" class="ans" id="opt1" name="opt">
+                <label for="ans1" class="answer1 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt2" name="opt">
+                <label for="ans2" class="answer2 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt3" name="opt">
+                <label for="ans3" class="answer3 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt4" name="opt">
+                <label for="ans4" class="answer4 an">Option 1</label>
+            </li>
+        </ul>
+        <div class="submit-button">
+            <button class="submit">Submit</button>
+         </div>
+         <div class="score" >
+
+         </div>
+    </div>
+</div>
+    
+    <script>
+               function opensidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'flex';
+}
+
+function closesidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'none';
+}
+
+let quizdata = [
+    {
+        "question": "Which of the following is the correct syntax to output 'Hello' in C++?",
+        "opt1": "printf(\"Hello\");",
+        "opt2": "cout << \"Hello\";",
+        "opt3": "System.out.println(\"Hello\");",
+        "opt4": "echo(\"Hello\");",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which concept allows defining functions with the same name but different parameters in C++?",
+        "opt1": "Inheritance",
+        "opt2": "Polymorphism",
+        "opt3": "Function Overloading",
+        "opt4": "Encapsulation",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which keyword is used to define a class in C++?",
+        "opt1": "object",
+        "opt2": "define",
+        "opt3": "class",
+        "opt4": "structure",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "What is the correct way to declare a pointer in C++?",
+        "opt1": "int ptr;",
+        "opt2": "int *ptr;",
+        "opt3": "pointer int ptr;",
+        "opt4": "ptr int *;",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which of the following is not a C++ access specifier?",
+        "opt1": "private",
+        "opt2": "protected",
+        "opt3": "public",
+        "opt4": "internal",
+        "correct_answer": "opt4"
+    },
+    {
+        "question": "Which feature of OOP is demonstrated by 'inheritance' in C++?",
+        "opt1": "Code reusability",
+        "opt2": "Data hiding",
+        "opt3": "Overloading",
+        "opt4": "Recursion",
+        "correct_answer": "opt1"
+    },
+    {
+        "question": "What does `new` keyword do in C++?",
+        "opt1": "Deletes an object",
+        "opt2": "Allocates memory dynamically",
+        "opt3": "Creates a namespace",
+        "opt4": "Initializes a class",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which operator is overloaded for object assignment?",
+        "opt1": "==",
+        "opt2": "=",
+        "opt3": "[]",
+        "opt4": "()",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which header file is required for input/output operations in C++?",
+        "opt1": "conio.h",
+        "opt2": "iostream",
+        "opt3": "stdio.h",
+        "opt4": "fstream",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which of the following is used to define a constant in C++?",
+        "opt1": "#define",
+        "opt2": "const",
+        "opt3": "static",
+        "opt4": "immutable",
+        "correct_answer": "opt2"
+    }
+];
+
+let counter = 0;
+let score = document.querySelector(".score");
+let data;
+
+function loadquestion() {
+    data = quizdata[counter];
+    document.querySelector(".ques").innerText = data.question;
+    document.querySelector(".answer1").innerText = data.opt1;
+    document.querySelector(".answer2").innerText = data.opt2;
+    document.querySelector(".answer3").innerText = data.opt3;
+    document.querySelector(".answer4").innerText = data.opt4;
+}
+
+loadquestion();
+
+let options = document.querySelectorAll("input[name='opt']");
+let scoreboard = 0;
+let submit = document.querySelector(".submit");
+
+const deselectAll = () => {
+    options.forEach((option) => {
+        option.checked = false;
+    });
+};
+
+submit.addEventListener("click", () => {
+    let selected = false;
+    let userchoice;
+
+    options.forEach((option) => {
+        if (option.checked) {
+            userchoice = option.id;
+            selected = true;
+        }
+    });
+
+    if (!selected) {
+        alert("Please select an option before submitting!");
+        return;
+    }
+
+    if (userchoice === data.correct_answer) {
+        scoreboard++;
+    }
+
+    deselectAll();
+    counter++;
+
+    if (counter < quizdata.length) {
+        loadquestion();
+    } else {
+        score.innerHTML = `
+            <h3>You scored ${scoreboard}/${quizdata.length} ✌️</h3>
+            <button onClick="window.location.reload();">Play Again</button>
+        `;
+        submit.style.visibility = "hidden";
+        score.classList.remove("score");
+        score.classList.add("showScore");
+    }
+});
+    </script>
+</body>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <nav>
+        <ul class="main">
+        <li>Quizify</li>
+        <li class="OnMobile"><a class="active" href="index.html">Home</a></li>
+        <li class="OnMobile"><a href="about.html">About</a></li>
+        <li class="open" onclick=opensidemenu()>&#9776;</li>
+        </ul>
+        <ul class="sidebar">
+            
+            <li class="close" onclick=closesidemenu()>&times;</li>
+            <li class="navi"><a class="active" href="index.html">Home</a></li>
+            <li class="navi"><a href="about.html">About</a></li>
+            
+        </ul>
+    </nav>
+    <div class="main-box">
+    <div class="que-box">
+        <h2 class="ques">Question</h2>
+        <ul style="list-style-type: none;">
+            <li>
+                <input type="radio" class="ans" id="opt1" name="opt">
+                <label for="ans1" class="answer1 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt2" name="opt">
+                <label for="ans2" class="answer2 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt3" name="opt">
+                <label for="ans3" class="answer3 an">Option 1</label>
+            </li>
+            <li>
+                <input type="radio" class="ans" id="opt4" name="opt">
+                <label for="ans4" class="answer4 an">Option 1</label>
+            </li>
+        </ul>
+        <div class="submit-button">
+            <button class="submit">Submit</button>
+         </div>
+         <div class="score" >
+
+         </div>
+    </div>
+</div>
+    
+    <script>
+               function opensidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'flex';
+}
+
+function closesidemenu() {
+    const sidemenu = document.querySelector(".sidebar");
+    sidemenu.style.display = 'none';
+}
+
+let quizdata = [
+    {
+        "question": "What does HTML stand for?",
+        "opt1": "Hyper Text Markdown Language",
+        "opt2": "Hyper Tool Markup Language",
+        "opt3": "Hyper Text Markup Language",
+        "opt4": "Home Text Markup Language",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which tag is used to create a hyperlink in HTML?",
+        "opt1": "<link>",
+        "opt2": "<a>",
+        "opt3": "<href>",
+        "opt4": "<url>",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which HTML element is used to display a large heading?",
+        "opt1": "<h6>",
+        "opt2": "<head>",
+        "opt3": "<h1>",
+        "opt4": "<heading>",
+        "correct_answer": "opt3"
+    },
+    {
+        "question": "Which tag is used to insert an image in HTML?",
+        "opt1": "<picture>",
+        "opt2": "<img>",
+        "opt3": "<image>",
+        "opt4": "<src>",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "What is the purpose of the <br> tag in HTML?",
+        "opt1": "To make text bold",
+        "opt2": "To create a line break",
+        "opt3": "To insert a table row",
+        "opt4": "To define a paragraph",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which HTML tag is used to define an unordered list?",
+        "opt1": "<ol>",
+        "opt2": "<ul>",
+        "opt3": "<li>",
+        "opt4": "<list>",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which attribute specifies an image source in HTML?",
+        "opt1": "href",
+        "opt2": "src",
+        "opt3": "link",
+        "opt4": "data",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "Which tag is used to create a table row in HTML?",
+        "opt1": "<th>",
+        "opt2": "<tr>",
+        "opt3": "<td>",
+        "opt4": "<row>",
+        "correct_answer": "opt2"
+    },
+    {
+        "question": "What is the correct HTML tag for inserting a line horizontally?",
+        "opt1": "<hr>",
+        "opt2": "<line>",
+        "opt3": "<break>",
+        "opt4": "<horizontal>",
+        "correct_answer": "opt1"
+    },
+    {
+        "question": "Which tag is used to add metadata to an HTML document?",
+        "opt1": "<body>",
+        "opt2": "<meta>",
+        "opt3": "<title>",
+        "opt4": "<footer>",
+        "correct_answer": "opt2"
+    }
+];
+
+
+let counter = 0;
+let score = document.querySelector(".score");
+let data;
+
+function loadquestion() {
+    data = quizdata[counter];
+    document.querySelector(".ques").innerText = data.question;
+    document.querySelector(".answer1").innerText = data.opt1;
+    document.querySelector(".answer2").innerText = data.opt2;
+    document.querySelector(".answer3").innerText = data.opt3;
+    document.querySelector(".answer4").innerText = data.opt4;
+}
+
+loadquestion();
+
+let options = document.querySelectorAll("input[name='opt']");
+let scoreboard = 0;
+let submit = document.querySelector(".submit");
+
+const deselectAll = () => {
+    options.forEach((option) => {
+        option.checked = false;
+    });
+};
+
+submit.addEventListener("click", () => {
+    let selected = false;
+    let userchoice;
+
+    options.forEach((option) => {
+        if (option.checked) {
+            userchoice = option.id;
+            selected = true;
+        }
+    });
+
+    if (!selected) {
+        alert("Please select an option before submitting!");
+        return;
+    }
+
+    if (userchoice === data.correct_answer) {
+        scoreboard++;
+    }
+
+    deselectAll();
+    counter++;
+
+    if (counter < quizdata.length) {
+        loadquestion();
+    } else {
+        score.innerHTML = `
+            <h3>You scored ${scoreboard}/${quizdata.length} ✌️</h3>
+            <button onClick="window.location.reload();">Play Again</button>
+        `;
+        submit.style.visibility = "hidden";
+        score.classList.remove("score");
+        score.classList.add("showScore");
+    }
+});
+    </script>
+</body>
